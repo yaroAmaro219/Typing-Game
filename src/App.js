@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 
 // credit scrimba react hooks speed typing game 
 
@@ -9,6 +9,7 @@ function App() {
   const [timeRemaining, setTimeRemaining] = useState(STARTING_TIME)
   const [isTimeRunning, setIsTimeRunning] = useState(false)
   const [wordCount, setWordCount] = useState(0)
+  const textBoxRef = useRef(null)
 
   function handleChange(e) {
     const { value } = e.target
@@ -25,6 +26,8 @@ function App() {
     setTimeRemaining(STARTING_TIME)
     setText("")
     setWordCount(0)
+    textBoxRef.current.disabled = false
+    textBoxRef.current.focus()
   }
 
   function endGame() {
@@ -47,6 +50,7 @@ function App() {
     <div className="App">
       <h1>How fast do you type?</h1>
       <textarea
+        ref={textBoxRef}
         onChange={handleChange}
         value={text}
         disabled={!isTimeRunning}/>
